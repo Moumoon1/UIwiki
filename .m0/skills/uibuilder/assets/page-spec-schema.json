@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Figma 组件页面规格",
+  "type": "object",
+  "required": [
+    "audience_type",
+    "requirement_summary",
+    "matched_reference",
+    "similarity_contract",
+    "sections",
+    "component_gaps",
+    "validation"
+  ],
+  "properties": {
+    "audience_type": {
+      "type": "string",
+      "enum": ["b端", "c端", "不确定"]
+    },
+    "requirement_summary": {
+      "type": "string"
+    },
+    "matched_reference": {
+      "type": "object",
+      "required": ["pattern", "reason"],
+      "properties": {
+        "pattern": {
+          "type": "string"
+        },
+        "reference_frame": {
+          "type": "string"
+        },
+        "reference_screenshot": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "similarity_contract": {
+      "type": "object",
+      "required": [
+        "same_shell",
+        "same_header_structure",
+        "same_primary_action_placement",
+        "same_filter_or_control_position",
+        "same_main_content_density",
+        "same_state_model",
+        "changed_only_domain_content"
+      ],
+      "properties": {
+        "same_shell": {
+          "type": "boolean"
+        },
+        "same_header_structure": {
+          "type": "boolean"
+        },
+        "same_primary_action_placement": {
+          "type": "boolean"
+        },
+        "same_filter_or_control_position": {
+          "type": "boolean"
+        },
+        "same_main_content_density": {
+          "type": "boolean"
+        },
+        "same_state_model": {
+          "type": "boolean"
+        },
+        "changed_only_domain_content": {
+          "type": "boolean"
+        },
+        "exceptions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["field", "reason"],
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "component", "figma_component", "props"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "component": {
+            "type": "string"
+          },
+          "figma_component": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "object"
+          },
+          "props": {
+            "type": "object"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/properties/sections/items"
+            }
+          },
+          "allowed_difference": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "component_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["need", "closest_component", "impact"],
+        "properties": {
+          "need": {
+            "type": "string"
+          },
+          "closest_component": {
+            "type": "string"
+          },
+          "impact": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["all_visible_ui_uses_library_components", "anti_patterns_removed"],
+      "properties": {
+        "all_visible_ui_uses_library_components": {
+          "type": "boolean"
+        },
+        "anti_patterns_removed": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
